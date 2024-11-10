@@ -53,7 +53,7 @@ use AuthenticatesUsers;
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             // Success
-            Session::flash("success", "Welcome, you are successfully login to inspection system.");
+            Session::flash("success", "Welcome, you are successfully login.");
             return redirect('dashboard');
         } else {
             Session::flash("error", "Sorry, your credentials are invalid.");

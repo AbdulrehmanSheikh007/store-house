@@ -44,32 +44,16 @@ $('.delete-form-btn').click(function () {
 var datepickers = ['date_to', 'date_from'];
 for (var i = 0; i < datepickers.length; i++) {
     $("." + datepickers[i]).daterangepicker({
-        timePicker: true,
+        timePicker: false,
         singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 2019,
+        showDropdowns: false,
+        minYear: 2000,
         maxYear: parseInt(moment().format('YYYY'), 10),
         locale: {
             format: 'Y-MM-DD'
         }
     });
 }
-
-var mainImg = $(".car_type_image").attr("src");
-$(".car_type_item").change(function () {
-    mainImg = APP_URL + "/public/images/inspections/" + $(this).val() + ".jpeg";
-    $(".car_type_image").attr("src", APP_URL + "/public/images/inspections/" + $(this).val() + ".jpeg");
-});
-
-$(".checklist_item").click(function () {
-    var img = returnImg().join("_x_");
-    if (img != "") {
-        img = img + ".jpeg";
-        console.log(img);
-        isFileExists(APP_URL + "/public/images/inspections/" + img, "car_type_image", mainImg, $(this));
-        //$(".car_type_image").attr("src", APP_URL + "/public/images/inspections/" + img);
-    }
-});
 
 function returnImg() {
     var choosenImg = [];
@@ -80,20 +64,4 @@ function returnImg() {
     });
 
     return choosenImg;
-}
-
-function isFileExists(filePath, data_class, backup_image, btn) {
-    $.ajax({
-        url: filePath,
-        type: 'HEAD',
-        error: function ()
-        {
-            $("." + data_class).attr("src", backup_image);
-//            btn.prop("checked", false);
-        },
-        success: function ()
-        {
-            $("." + data_class).attr("src", filePath);
-        }
-    });
 }
