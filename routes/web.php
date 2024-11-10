@@ -24,5 +24,6 @@ Route::group(["middleware" => "auth"], function () {
     Route::get('/change-password', [App\Http\Controllers\ProfileController::class, 'changePassword']);
     Route::post('/update-password', [App\Http\Controllers\ProfileController::class, 'updatePassword']);
     Route::resource('/profile', App\Http\Controllers\ProfileController::class);
+    Route::resource('/categories', App\Http\Controllers\CategoriesController::class);
 });
 
