@@ -50,7 +50,7 @@ $segment2 = Request::segment(2);
             </li>
             
             <li class="nav-item">
-                <a class="nav-link " href="">
+                <a class="nav-link @if(in_array($segment1, ['users'])) active @endif" href="{{url('users')}}">
                     <i class="material-icons">people</i>
                     <span>Manage Users</span>
                 </a>

@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\CategoryRepository;
+use App\Repositories\Interfaces\UsersRepositoryInterface;
+use App\Repositories\UsersRepository;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -13,6 +15,7 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register(): void {
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(UsersRepositoryInterface::class, UsersRepository::class);
     }
 
     /**
