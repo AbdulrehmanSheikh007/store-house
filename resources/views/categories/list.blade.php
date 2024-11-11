@@ -52,9 +52,9 @@
                                 <td class="text-left">{{ucfirst($item->name)}}</td>
                                 <td class="text-center">0</td>
                                 <td>
-                                    <a href="{{url('categories/' . $item->id . '/edit')}}" class="btn btn-warning"><i class="fa fa-edit white"></i></a>
+                                    <a href="{{url('categories/' . Hashids::encode($item->id) . '/edit')}}" class="btn btn-warning"><i class="fa fa-edit white"></i></a>
 
-                                    <form method="POST" action="{{url('/categories/' .$item->id)}}" accept-charset="UTF-8" style="display:inline">
+                                    <form method="POST" action="{{url('/categories/' .Hashids::encode($item->id))}}" accept-charset="UTF-8" style="display:inline">
                                         <input name="_method" type="hidden" value="DELETE">
                                         <input name="_token" type="hidden" value="{{csrf_token()}}">
                                         <button class="btn btn-danger delete-form-btn"  data-toggle="tooltip" title="Delete"  type="button"><i class="fa fa-trash fa-fw" title="Delete"></i></button>

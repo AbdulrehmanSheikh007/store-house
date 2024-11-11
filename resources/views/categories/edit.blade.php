@@ -11,11 +11,11 @@
     </div>
     <!-- End Page Header -->
     <!-- Default Light Table -->
-    <form action="{{url('categories/' . $data->id)}}" method="post" enctype="multipart/form-data">
+    <form action="{{url('categories/' . Hashids::encode($data->id))}}" method="post" enctype="multipart/form-data">
         @csrf 
 
         <input type="hidden" name="_method" value="PUT" /><!-- comment -->
-        <input type="hidden" name="id" value="{{$data->id}}" /><!-- comment -->
+        <input type="hidden" name="id" value="{{Hashids::encode($data->id)}}" /><!-- comment -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-small mb-4">
