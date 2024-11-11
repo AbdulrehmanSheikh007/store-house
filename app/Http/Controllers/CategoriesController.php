@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categories;
+use Hashids; 
 use Arr;
 
 class CategoriesController extends Controller {
@@ -42,7 +43,7 @@ class CategoriesController extends Controller {
 
     public function edit($id) {
         $action = 'Update';
-        $data = Categories::where("id", $id)->first();
+        $data = Categories::where("id", Hashids::decode($id))->first();
         return view('categories.edit', compact(['action', 'data']));
     }
 
@@ -66,14 +67,14 @@ class CategoriesController extends Controller {
 
         $modalValues = $request->all();
         Arr::forget($modalValues, ['id', '_method', '_token', 'action']);
-        Categories::where("id", $id)->update($modalValues);
+        Categories::where("id", Hashids::decode($id))->update($modalValues);
 
         $request->session()->flash('success', 'Category has been updated.');
         return redirect("/categories");
     }
 
     public function destroy($id, Request $request) {
-        Categories::where("id", $id)->delete();
+        Categories::where("id", Hashids::decode($id))->delete();
         $request->session()->flash('success', 'Category has been deleted.');
         return redirect("/categories");
     }

@@ -8,6 +8,7 @@ use Auth;
 use Storage;
 use Arr;
 use Hash;
+use Hashids;
 
 class ProfileController extends Controller {
 
@@ -42,7 +43,7 @@ class ProfileController extends Controller {
         
         $modalValues = $request->all();
         Arr::forget($modalValues, ['id', '_method', '_token', 'action']);        
-        User::where("id", $id)->update($modalValues);
+        User::where("id", Hashids::decode($id))->update($modalValues);
 
         $request->session()->flash('success', 'Profile has been updated');
         return redirect("/profile");
