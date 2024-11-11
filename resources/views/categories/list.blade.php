@@ -42,7 +42,7 @@
                         <thead class="bg-light">
                             <tr>
                                 <th scope="col" class="text-left border-0">Categories</th>
-                                <th scope="col" class="text-center border-0">Products</th>
+                                <th scope="col" class="text-center border-0">Total Products</th>
                                 <th scope="col" class="border-0">Actions</th>
                             </tr>
                         </thead>
@@ -50,7 +50,7 @@
                             @foreach($data as $item)
                             <tr>
                                 <td class="text-left">{{ucfirst($item->name)}}</td>
-                                <td class="text-center">0</td>
+                                <td class="text-center">{{$item->products_count}}</td>
                                 <td>
                                     <a href="{{url('categories/' . Hashids::encode($item->id) . '/edit')}}" class="btn btn-warning"><i class="fa fa-edit white"></i></a>
 

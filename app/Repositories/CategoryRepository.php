@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CategoryRepositoryInterface;
 class CategoryRepository implements CategoryRepositoryInterface {
 
     public function all($filters = []) {
-        $data = Categories::query();
+        $data = Categories::withCount('products');
         $search = $filters["search"] ?? NULL;
         if (!empty($search)) {
             $data = $data->where('name', 'like', '%' . $search . '%');
