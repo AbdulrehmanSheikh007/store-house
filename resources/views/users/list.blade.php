@@ -42,7 +42,8 @@
                         <thead class="bg-light">
                             <tr>
                                 <th scope="col" class="text-left border-0">Full Name</th>
-                                <th scope="col" class="text-left border-0">Email</th>
+                                <th scope="col" class="text-left border-0">Email Address</th>
+                                <th scope="col" class="text-center border-0">Products</th>
                                 <th scope="col" class="border-0">Actions</th>
                             </tr>
                         </thead>
@@ -51,6 +52,7 @@
                             <tr>
                                 <td class="text-left">{{ucfirst($item->full_name)}}</td>
                                 <td class="text-left">{{$item->email}}</td>
+                                <td class="text-center">{{$item->products_count}}</td>
                                 <td>
                                     <a href="{{url('users/' . Hashids::encode($item->id) . '/edit')}}" class="btn btn-warning"><i class="fa fa-edit white"></i></a>
 

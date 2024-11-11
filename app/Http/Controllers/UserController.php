@@ -73,6 +73,12 @@ class UserController extends Controller {
     }
 
     public function destroy($id, Request $request) {
+        $user = $this->userService->getUserById($id);
+        if ($user->products->count() > 0) {
+            $request->session()->flash("error", "User contained products due to which couldn't deleted.");
+            return redirect("/users");
+        }
+
         $this->userService->deleteUser($id, $request->all());
         $request->session()->flash('success', 'User has been deleted.');
         return redirect("/users");

@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\UsersRepositoryInterface;
 class UsersRepository implements UsersRepositoryInterface {
 
     public function all($filters = []) {
-        $data = User::query();
+        $data = User::withCount('products');
         $search = $filters["search"] ?? NULL;
         if (!empty($search)) {
             $data = $data->where('full_name', 'like', '%' . $search . '%');
