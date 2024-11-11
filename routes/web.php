@@ -26,5 +26,6 @@ Route::group(["middleware" => "auth"], function () {
     Route::resource('/profile', App\Http\Controllers\ProfileController::class);
     Route::resource('/categories', App\Http\Controllers\CategoriesController::class);
     Route::resource('/users', App\Http\Controllers\UserController::class);
+    Route::resource('/products', App\Http\Controllers\ProductController::class);
 });
 

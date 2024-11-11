@@ -2,35 +2,29 @@
 
 namespace App\Repositories;
 
-use App\Models\Categories;
-use App\Repositories\Interfaces\CategoryRepositoryInterface;
+use App\Models\Products;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 
-class CategoryRepository implements CategoryRepositoryInterface {
+class ProductRepository implements ProductRepositoryInterface {
 
     public function all($filters = []) {
-        $data = Categories::withCount('products');
+        $data = Products::with('creator');
         $search = $filters["search"] ?? NULL;
-        $paginate = $filters["paginate"] ?? true;
         if (!empty($search)) {
             $data = $data->where('name', 'like', '%' . $search . '%');
         }
 
-        $data = $data->orderBy("ID", "DESC");
-        if (!$paginate) {
-            $data = $data->get();
-        } else {
-            $data = $data->paginate(config("constants.PER_PAGE"))->appends(['search' => $search]);
-        }
-
+        $data = $data->orderBy("updated_at", "DESC")->paginate(config("constants.PER_PAGE"));
+        $data = $data->appends(['search' => $search]);
         return $data;
     }
 
     public function find($id) {
-        return Categories::find($id);
+        return Products::with('categories')->find($id);
     }
 
     public function create(array $data) {
-        return Categories::create($data);
+        return Products::create($data);
     }
 
     public function update($id, array $data) {
