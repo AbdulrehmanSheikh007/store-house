@@ -65,3 +65,29 @@ function returnImg() {
 
     return choosenImg;
 }
+
+// Initialize Select2 on multiple select
+$('.select2Lib').select2({
+    placeholder: "Select Categories"
+});
+
+//Quantity Button Handling 
+$("#quantityField").val("1");
+$(".incrementBtn").click(function () {
+    $("#quantityField").val(parseInt($("#quantityField").val() || 0) + 1);
+});
+$(".decrementBtn").click(function () {
+    var value = parseInt($("#quantityField").val() || 0) - 1;
+    if (isNaN(value) || value <= 0) {
+        $("#quantityField").val("1");
+    } else {
+        $("#quantityField").val(value);
+    }
+
+});
+
+
+$('#quantityField').on('input', function (event) {
+    // Allow only numeric characters and prevent non-numeric input
+    this.value = this.value.replace(/[^0-9]/g, '');  // Only digits 0-9
+});

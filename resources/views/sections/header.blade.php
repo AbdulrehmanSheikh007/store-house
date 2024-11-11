@@ -20,7 +20,10 @@
         <link rel="stylesheet" href="{{asset('public/alertify/css/themes/default.min.css')}}">
         <!--Datepicker-->
         <link href="{{asset('public/datepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" >
-
+        
+        <!--Select 2-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+        
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <style>
             .navbar-brand {

@@ -12,6 +12,8 @@
         <script src="{{asset('public/alertify/alertify.min.js')}}"></script>
         <script src="{{asset('public/datepicker/moment.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/datepicker/daterangepicker.js')}}" type="text/javascript"></script>
+        <!-- Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
         <script async defer src="{{asset('public/js/default.js')}}"></script>
         
         <script>
