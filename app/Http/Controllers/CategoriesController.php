@@ -63,6 +63,12 @@ class CategoriesController extends Controller {
     }
 
     public function destroy($id, Request $request) {
+        $category = $this->categoryService->getCategoryById($id);
+        if ($category->products->count() > 0) {
+            $request->session()->flash("error", "Category contained products due to which couldn't deleted.");
+            return redirect("/categories");
+        }
+
         $this->categoryService->deleteCategory($id, $request->all());
         $request->session()->flash('success', 'Category has been deleted.');
         return redirect("/categories");
