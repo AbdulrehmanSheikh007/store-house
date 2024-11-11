@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categories;
-use Hashids; 
+use App\Services\CategoryService;
+use Hashids;
 use Arr;
 
 class CategoriesController extends Controller {
@@ -14,8 +15,10 @@ class CategoriesController extends Controller {
      *
      * @return void
      */
-    public function __construct() {
-        
+    protected $categoryService;
+
+    public function __construct(CategoryService $categoryService) {
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -24,15 +27,7 @@ class CategoriesController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request) {
-        $filters = $request->all();
-        $data = Categories::query();
-        $search = $filters["search"] ?? NULL; 
-        if (!empty($search)) {
-            $data = $data->where('name', 'like', '%' . $search . '%');
-        }
-
-        $data = $data->orderBy("ID", "DESC")->paginate(config("constants.PER_PAGE"));
-        $data = $data->appends(['search' => $search]);
+        $data = $this->categoryService->getAllCategories($request->all());
         return view('categories.list', compact(['data']));
     }
 
@@ -43,7 +38,7 @@ class CategoriesController extends Controller {
 
     public function edit($id) {
         $action = 'Update';
-        $data = Categories::where("id", Hashids::decode($id))->first();
+        $data = $this->categoryService->getCategoryById($id);
         return view('categories.edit', compact(['action', 'data']));
     }
 
@@ -52,10 +47,7 @@ class CategoriesController extends Controller {
             'name' => 'required'
         ]);
 
-        $modalValues = $request->all();
-        Arr::forget($modalValues, ['id', '_method', '_token', 'action']);
-        Categories::create($modalValues);
-
+        $this->categoryService->createCategory($request->all());
         $request->session()->flash('success', 'Category has been created');
         return redirect("/categories");
     }
@@ -65,16 +57,13 @@ class CategoriesController extends Controller {
             'name' => 'required'
         ]);
 
-        $modalValues = $request->all();
-        Arr::forget($modalValues, ['id', '_method', '_token', 'action']);
-        Categories::where("id", Hashids::decode($id))->update($modalValues);
-
+        $this->categoryService->updateCategory($id, $request->all());
         $request->session()->flash('success', 'Category has been updated.');
         return redirect("/categories");
     }
 
     public function destroy($id, Request $request) {
-        Categories::where("id", Hashids::decode($id))->delete();
+        $this->categoryService->deleteCategory($id, $request->all());
         $request->session()->flash('success', 'Category has been deleted.');
         return redirect("/categories");
     }
