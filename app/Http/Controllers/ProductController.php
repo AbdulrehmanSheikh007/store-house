@@ -77,7 +77,7 @@ class ProductController extends Controller {
     public function destroy($id, Request $request) {
         $this->productService->deleteProduct($id, $request->all());
         $request->session()->flash('success', 'Product has been deleted.');
-        return redirect("/categories");
+        return redirect("/products");
     }
 
 }
