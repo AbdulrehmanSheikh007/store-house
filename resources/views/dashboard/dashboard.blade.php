@@ -68,7 +68,7 @@
             <!-- Quick Post -->
             <div class="card card-small h-100">
                 <div class="card-header border-bottom">
-                    <h6 class="m-0">Product Creation Trend Over Time</h6>
+                    <h6 class="m-0">Yearly Product Creation Trend {{date("Y")}}</h6>
                 </div>
                 <div class="card-body d-flex flex-column">
                     <canvas id="productCreationChart"></canvas>
@@ -89,7 +89,7 @@ var productCreationChart = new Chart(ctx, {
     data: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [{
-                label: 'Products Created',
+                label: 'Yearly Products Creation Trend',
                 data: graphData,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 fill: false,
